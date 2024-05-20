@@ -15,19 +15,19 @@ spec:
       tier: app
       project: roboshop
       environment: dev
-    template:
-      metadata:
-        labels:
-          tier: app
-          project: roboshop
-          environment: dev
-      spec:
-        containers:
-        - name: catalogue
-          image: surajk879/catalogue
-          envFrom:
-          - configMapRef:
-              name: catalogue
+  template:
+    metadata:
+      labels:
+        tier: app
+        project: roboshop
+        environment: dev
+    spec:
+      containers:
+      - name: catalogue
+        image: surajk879/catalogue
+        envFrom:
+        - configMapRef:
+            name: catalogue
 
 --- 
 apiVersion: v1
