@@ -127,6 +127,18 @@ spec:
         envFrom:
         - configMapRef:
             name: nginx
+      volumes:
+      - name: nginx-conf
+        configMap:
+          name: nginx
+          items:
+          - key: nginx.conf
+            path: nginx.conf
+      volumeMounts:
+        - name: nginx-conf # name of the volume you created above
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+          readOnly: true
 
 ---
 apiVersion: v1
