@@ -12,12 +12,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      tier: mongodb
+      tier: database
+      project: roboshop
       environment: dev
   template:
     metadata:
       labels:
-        tier: mongodb
+        tier: database
+        project: roboshop
         environment: dev
     
     spec:
