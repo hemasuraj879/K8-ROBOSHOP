@@ -7,7 +7,6 @@ metadata:
     tier: database
     project: roboshop
     environment: dev
-
 spec:
   replicas: 1
   selector:
@@ -15,18 +14,17 @@ spec:
       tier: database
       project: roboshop
       environment: dev
-
   template:
     metadata:
       labels:
         tier: database
         project: roboshop
         environment: dev
-
     spec:
       containers:
       - name: rabbitmq
         image: rabbitmq
+
 
 ---
 apiVersion: v1
