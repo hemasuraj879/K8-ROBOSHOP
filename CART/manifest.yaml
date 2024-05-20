@@ -28,7 +28,7 @@ spec:
         image: surajk879/cart
         envFrom:
         - configMapRef:
-          name: cart
+            name: cart
 
 ---
 apiVersion: v1
@@ -41,7 +41,7 @@ spec:
     tier: app
     project: roboshop
     environment: dev
-  prots:
+  ports:
   - name: cart-port
     protocol: TCP
     port: 8080
