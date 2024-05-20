@@ -54,5 +54,5 @@ metadata:
   name: catalogue
   namespace: roboshop
 data:
-  MONGO="true"
-  MONGO_URL="mongodb://mongo:27017/catalogue"
+  MONGO: "true"
+  MONGO_URL: "mongodb://mongo:27017/catalogue"
