@@ -50,7 +50,7 @@ spec:
 ---
 apiVersion: v1
 kind: ConfigMap
-metdata:
+metadata:
   name: catalogue
   namespace: roboshop
 data:
