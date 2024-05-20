@@ -1,13 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata: 
+metadata:
   name: mysql
   namespace: roboshop
-  labels: 
+  labels:
     tier: database
     project: roboshop
     environment: dev
-
 spec:
   replicas: 1
   selector:
@@ -21,14 +20,14 @@ spec:
         tier: database
         project: roboshop
         environment: dev
+    spec:  # This is where the "spec" field should be
+      containers:
+      - name: mysql
+        image: surajk879/mysql
+        envFrom:
+        - configMapRef:
+            name: mysql
 
-  spec:
-    containers:
-    - name: mysql
-      image: surajk879/mysql
-      envFrom:
-      - configMapRef:
-          name: mysql
 
 ---
 apiVersion: v1
