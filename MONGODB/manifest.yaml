@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: mongodb
-        image: roboshop/mongodb
+        image: surajk879/mongodb
 
 ---
 apiVersion: v1
