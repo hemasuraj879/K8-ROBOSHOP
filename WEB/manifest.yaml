@@ -121,12 +121,6 @@ spec:
         project: roboshop
         environment: dev
     spec:
-      containers:
-      - name: web
-        image: surajk879/web
-        envFrom:
-        - configMapRef:
-            name: nginx
       volumes:
       - name: nginx-conf
         configMap:
@@ -134,7 +128,10 @@ spec:
           items:
           - key: nginx.conf
             path: nginx.conf
-      volumeMounts:
+      containers:
+      - name: web
+        image: surajk879/web
+        volumeMounts:
         - name: nginx-conf # name of the volume you created above
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
