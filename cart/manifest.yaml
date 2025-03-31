@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: cart
-        image: joindevops/cart:1.0.0
+        image: 296062550816.dkr.ecr.us-east-1.amazonaws.com/suraj/dev/cart:latest
         envFrom:
         - configMapRef:
             name: cart
