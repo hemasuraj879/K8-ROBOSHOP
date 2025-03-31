@@ -144,7 +144,7 @@ spec:
             path: nginx.conf
       containers:
       - name: catalogue
-        image: joindevops/web:1.0.0
+        image: 296062550816.dkr.ecr.us-east-1.amazonaws.com/suraj/dev/web:latest
         resources:
           requests:
             cpu: "50m"
