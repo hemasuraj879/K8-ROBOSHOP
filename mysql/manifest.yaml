@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: 
+        image: 296062550816.dkr.ecr.us-east-1.amazonaws.com/suraj/dev/mysql:latest
         envFrom:
         - configMapRef:
             name: mysql
