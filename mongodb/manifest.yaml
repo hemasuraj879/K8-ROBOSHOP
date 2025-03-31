@@ -1,20 +1,20 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: mongodb
-  labels:
+  namespace: roboshop
+  labels: # these labels belong to deployment
     app: mongodb
     tier: db
     project: roboshop
 spec:
+  replicas: 1
   selector:
-    matchLabels:
+    matchLabels: # these labels should match with pod
       app: mongodb
       tier: db
       project: roboshop
-  serviceName: "mongodb"
-  replicas: 1
-  template:
+  template: # this is the pod definition
     metadata:
       labels:
         app: mongodb
@@ -24,26 +24,13 @@ spec:
       containers:
       - name: mongodb
         image: 296062550816.dkr.ecr.us-east-1.amazonaws.com/suraj/dev/mongodb:latest
-        volumeMounts:
-        - name: mongodb
-          mountPath: /data/db
-  # this is PVC directly.
-  volumeClaimTemplates:
-  - metadata:
-      name: mongodb
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "ebs-sc"
-      resources:
-        requests:
-          storage: 5Gi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: mongodb
+  namespace: roboshop
 spec:
-  clusterIP: None #headless
   selector:
     app: mongodb
     tier: db

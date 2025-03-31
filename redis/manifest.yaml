@@ -1,20 +1,20 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: redis
-  labels:
+  namespace: roboshop
+  labels: # these labels belong to deployment
     app: redis
     tier: db
     project: roboshop
 spec:
+  replicas: 1
   selector:
-    matchLabels:
+    matchLabels: # these labels should match with pod
       app: redis
       tier: db
       project: roboshop
-  serviceName: "redis"
-  replicas: 1
-  template:
+  template: # this is the pod definition
     metadata:
       labels:
         app: redis
@@ -24,26 +24,13 @@ spec:
       containers:
       - name: redis
         image: redis
-        volumeMounts:
-        - name: redis
-          mountPath: /data
-  # this is PVC directly.
-  volumeClaimTemplates:
-  - metadata:
-      name: redis
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "roboshop-dynamic-ebs"
-      resources:
-        requests:
-          storage: 5Gi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: redis
+  namespace: roboshop
 spec:
-  clusterIP: None #headless
   selector:
     app: redis
     tier: db

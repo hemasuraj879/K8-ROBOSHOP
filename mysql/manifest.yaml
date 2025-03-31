@@ -1,20 +1,20 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: mysql
-  labels:
+  namespace: roboshop
+  labels: # these labels belong to deployment
     app: mysql
     tier: db
     project: roboshop
 spec:
+  replicas: 1
   selector:
-    matchLabels:
+    matchLabels: # these labels should match with pod
       app: mysql
       tier: db
       project: roboshop
-  serviceName: "mysql"
-  replicas: 1
-  template:
+  template: # this is the pod definition
     metadata:
       labels:
         app: mysql
@@ -23,30 +23,17 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: 296062550816.dkr.ecr.us-east-1.amazonaws.com/suraj/dev/mysql:latest
+        image: 
         envFrom:
         - configMapRef:
             name: mysql
-        volumeMounts:
-        - name: mysql
-          mountPath: /var/lib/mysql
-  # this is PVC directly.
-  volumeClaimTemplates:
-  - metadata:
-      name: mysql
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "roboshop-dynamic-ebs"
-      resources:
-        requests:
-          storage: 5Gi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: mysql
+  namespace: roboshop
 spec:
-  clusterIP: None #headless
   selector:
     app: mysql
     tier: db
@@ -61,6 +48,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mysql
+  namespace: roboshop
 data:
   MYSQL_ALLOW_EMPTY_PASSWORD: "yes" # keep true in double quotes
   MYSQL_DATABASE: "cities"

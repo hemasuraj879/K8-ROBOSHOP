@@ -1,20 +1,20 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: rabbitmq
-  labels:
+  namespace: roboshop
+  labels: # these labels belong to deployment
     app: rabbitmq
     tier: db
     project: roboshop
 spec:
+  replicas: 1
   selector:
-    matchLabels:
+    matchLabels: # these labels should match with pod
       app: rabbitmq
       tier: db
       project: roboshop
-  serviceName: "rabbitmq"
-  replicas: 1
-  template:
+  template: # this is the pod definition
     metadata:
       labels:
         app: rabbitmq
@@ -24,26 +24,13 @@ spec:
       containers:
       - name: rabbitmq
         image: rabbitmq
-        volumeMounts:
-        - name: rabbitmq
-          mountPath: /var/lib/rabbitmq
-  # this is PVC directly.
-  volumeClaimTemplates:
-  - metadata:
-      name: rabbitmq
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "roboshop-dynamic-ebs"
-      resources:
-        requests:
-          storage: 5Gi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: rabbitmq
+  namespace: roboshop
 spec:
-  clusterIP: None #headless
   selector:
     app: rabbitmq
     tier: db
