@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: shipping
-        image: joindevops/shipping:1.0.0
+        image: 296062550816.dkr.ecr.us-east-1.amazonaws.com/suraj/dev/shipping:latest
         envFrom:
         - configMapRef:
             name: shipping
