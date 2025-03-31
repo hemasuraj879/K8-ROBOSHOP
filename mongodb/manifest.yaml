@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: mongodb
-        image: mongodb:1.0
+        image: 296062550816.dkr.ecr.us-east-1.amazonaws.com/suraj/dev/mongodb:latest
 ---
 apiVersion: v1
 kind: Service
