@@ -188,9 +188,10 @@ metadata:
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:296062550816:certificate/1d6dd4cc-6d24-4cec-a721-ce364bd8f1d7
     alb.ingress.kubernetes.io/target-type: ip
-    
+
 
 spec:
+  ingressClassName: alb
   rules:
   - host: "suraj.roboshop.sbs"
     http:
