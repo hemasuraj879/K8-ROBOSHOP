@@ -164,7 +164,6 @@ metadata:
   name: web
   namespace: roboshop
 spec:
-  type: LoadBalancer
   selector:
     app: web
     tier: web
@@ -174,6 +173,35 @@ spec:
     protocol: TCP
     port: 80 # this port belongs to service
     targetPort: 80 # this port belongs to container
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-wildcard-host
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/tags: Kubernetes=ingress, Project=suraj
+    alb.ingress.kubernetes.io/subnets: subnet-0674393573aba8fdc, subnet-05dacae850d2e5555
+    alb.ingress.kubernetes.io/security-groups: sg-0c633a3f8a4054737
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:296062550816:certificate/1d6dd4cc-6d24-4cec-a721-ce364bd8f1d7
+    alb.ingress.kubernetes.io/target-type: ip
+    
+
+spec:
+  rules:
+  - host: "suraj.roboshop.sbs"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/bar"
+        backend:
+          service:
+            name: web
+            port:
+              number: 80
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
