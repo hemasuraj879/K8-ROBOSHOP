@@ -179,12 +179,12 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-wildcard-host
+  name: web
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/tags: Kubernetes=ingress, Project=suraj
-    alb.ingress.kubernetes.io/subnets: subnet-0674393573aba8fdc, subnet-05dacae850d2e5555
-    alb.ingress.kubernetes.io/security-groups: sg-0c633a3f8a4054737
+    alb.ingress.kubernetes.io/subnets: subnet-04e3c50babb4d7360, subnet-0182b9929f05c8972
+    alb.ingress.kubernetes.io/security-groups: sg-08adad0368368acb8
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:296062550816:certificate/1d6dd4cc-6d24-4cec-a721-ce364bd8f1d7
     alb.ingress.kubernetes.io/target-type: ip
@@ -204,22 +204,22 @@ spec:
             port:
               number: 80
 ---
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: web
-  namespace: roboshop
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: web
-  minReplicas: 1
-  maxReplicas: 10
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 75
+# apiVersion: autoscaling/v2
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: web
+#   namespace: roboshop
+# spec:
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: web
+#   minReplicas: 1
+#   maxReplicas: 10
+#   metrics:
+#   - type: Resource
+#     resource:
+#       name: cpu
+#       target:
+#         type: Utilization
+#         averageUtilization: 75
